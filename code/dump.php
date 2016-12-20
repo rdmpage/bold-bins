@@ -54,6 +54,7 @@ while (!$done)
 			foreach ($taxon_keys as $key)
 			{
 				$value = '';
+				$dwc_key = $key;
 				
 				if ($result->fields[$key] != '')
 				{
@@ -77,6 +78,7 @@ while (!$done)
 							$obj->scientificName = $value;
 							$parts = explode(' ', $value);
 							$value = $parts[1];
+							$dwc_key = 'specificEpithet';
 							
 							
 						}
@@ -86,11 +88,12 @@ while (!$done)
 							$parts = explode(' ', $value);
 							$value = $parts[2];
 							$obj->rank = 'subspecies';
+							$dwc_key = 'infraspecificEpithet';
 
 						}
 					}
 				}
-				$obj->{$key} = $value;
+				$obj->{$dwc_key} = $value;
 			}
 
 		
@@ -155,7 +158,7 @@ while (!$done)
 	else
 	{
 		$offset += $page;		
-		//if ($offset > 1000) { $done = true; }
+		if ($offset > 1000) { $done = true; }
 	}
 }
 

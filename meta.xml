@@ -5,10 +5,6 @@
     </files>
     <id index="0" />
     
-    taxonID	phylum	class	order	family	subfamily	genus	specificEpithet	infraspecificEpithet	scientificName	taxonRank	taxonRemarks
-
-    
-    
     <field index="0" term="http://rs.tdwg.org/dwc/terms/taxonID"/>
     <field index="1" term="http://rs.tdwg.org/dwc/terms/phylum"/>
     <field index="2" term="http://rs.tdwg.org/dwc/terms/class"/>
