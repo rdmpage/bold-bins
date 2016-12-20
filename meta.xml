@@ -38,7 +38,7 @@
   <!-- bibliographic details, formatted citation  -->
   <extension encoding="utf-8" fieldsTerminatedBy="\t" linesTerminatedBy="\n" fieldsEnclosedBy="" ignoreHeaderLines="1" rowType="http://rs.gbif.org/terms/1.0/Reference">
     <files>
-      <location>references.tsv</location>
+      <location>reference.tsv</location>
     </files>
     <coreid index="0" />
     <field index="1" term="http://purl.org/dc/terms/identifier"/>
