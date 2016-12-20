@@ -24,7 +24,9 @@ $mode = 0;
 
 $done = false;
 
-$keys = array('taxonID', 'phylum', 'class', 'order', 'family', 'subfamily', 'genus', 'specificEpithet', 'infraspecificEpithet', 'scientificName', 'taxonRank', 'taxonRemarks' );
+$keys = array('taxonID', 'phylum', 'class', 'order', 'family', 'subfamily', 'genus', 
+'specificEpithet', 'infraspecificEpithet', 'scientificName', 'taxonRank', 'taxonRemarks',
+'references' );
 echo join("\t", $keys) . "\n";
 
 while (!$done)
@@ -40,6 +42,7 @@ while (!$done)
 		{
 			$obj = new stdclass;
 			$obj->taxonID = $result->fields['bin'];
+			$obj->references = 'http://www.boldsystems.org/index.php/Public_BarcodeCluster?clusteruri=' . $result->fields['bin'];
 
 
 			$obj->taxonRemarks = array();

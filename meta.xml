@@ -17,11 +17,9 @@
     <field index="9" term="http://rs.tdwg.org/dwc/terms/scientificName"/>
     <field index="10" term="http://rs.tdwg.org/dwc/terms/taxonRank"/>
     <field index="11" term="http://rs.tdwg.org/dwc/terms/taxonRemarks"/>
-    
-    <!-- link to original publication -->
-    <!-- <field index="14" term="http://purl.org/dc/terms/references"/> -->
-    
-    <!-- link to BOLD? -->
+        
+    <!-- link to BOLD -->
+    <field index="12" term="http://purl.org/dc/terms/references"/> 
     
     <!-- defaults -->
     <!-- <field term="http://rs.tdwg.org/dwc/terms/kingdom" default="Plantae" />
