@@ -44,11 +44,9 @@ while (!$done)
 			$obj->taxonID = $result->fields['bin'];
 			$obj->references = 'http://www.boldsystems.org/index.php/Public_BarcodeCluster?clusteruri=' . $result->fields['bin'];
 
-
 			$obj->taxonRemarks = array();
 			$obj->rank = 'species';
 			$obj->scientificName = '';
-
 			
 			$taxon_keys = array('phylum', 'class', 'order', 'family', 'subfamily', 'genus', 'species', 'subspecies');
 			
@@ -161,7 +159,7 @@ while (!$done)
 	else
 	{
 		$offset += $page;		
-		if ($offset > 1000) { $done = true; }
+		//if ($offset > 1000) { $done = true; }
 	}
 }
 

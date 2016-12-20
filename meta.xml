@@ -25,6 +25,16 @@
     <!-- <field term="http://rs.tdwg.org/dwc/terms/kingdom" default="Plantae" />
     <field term="http://rs.tdwg.org/dwc/terms/nomenclaturalCode" default="ICNafp" /> -->
   </core>
+  
+  <extension encoding="utf-8" fieldsTerminatedBy="\t" linesTerminatedBy="\n" fieldsEnclosedBy="" ignoreHeaderLines="1" rowType="http://rs.gbif.org/terms/1.0/Identifier">
+    <files>
+      <location>identifier.tsv</location>
+    </files>
+    <coreid index="0" />
+    <field index="1" term="http://purl.org/dc/terms/identifier"/>
+    <field index="2" term="http://purl.org/dc/terms/title"/>
+  </extension>
+  
     
   <!-- bibliographic details, formatted citation  -->
   <!--
