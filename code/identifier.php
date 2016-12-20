@@ -30,7 +30,7 @@ echo join("\t", $keys) . "\n";
 
 while (!$done)
 {
-	$sql = 'SELECT * FROM `bins` WHERE doi IS NOT NULL ORDER BY bin LIMIT ' . $page . ' OFFSET ' . $offset;
+	$sql = 'SELECT * FROM `bins` WHERE doi IS NOT NULL and phylum Is NOT NULL ORDER BY bin LIMIT ' . $page . ' OFFSET ' . $offset;
 
 	$result = $db->Execute($sql);
 	if ($result == false) die("failed [" . __FILE__ . ":" . __LINE__ . "]: " . $sql);
