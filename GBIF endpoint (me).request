@@ -3,13 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>baseURL</key>
-	<string>http://api.gbif.org/v1/dataset</string>
+	<string>http://api.gbif.org/v1/dataset/4cec8fef-f129-4966-89b7-4f8439aba058/endpoint</string>
 	<key>bodyString</key>
 	<string>{
-	"publishingOrganizationKey":"92f51af1-e917-49bc-a8ed-014ed3a77bec",
-	"installationKey":"645445d5-177a-475d-b2fe-69d3f6c89498",
-	"title":"International Barcode of Life project (iBOL) Barcode Index Numbers (BINs)",
-	"type":"CHECKLIST" 
+  "type":"DWC_ARCHIVE",
+  "url":"https://github.com/rdmpage/bold-bins/archive/master.zip"
 }</string>
 	<key>followRedirect</key>
 	<true/>

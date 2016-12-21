@@ -3,13 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>baseURL</key>
-	<string>http://api.gbif.org/v1/dataset</string>
+	<string>http://api.gbif.org/v1/dataset/040c5662-da76-4782-a48e-cdea1892d14c/endpoint</string>
 	<key>bodyString</key>
 	<string>{
-	"publishingOrganizationKey":"92f51af1-e917-49bc-a8ed-014ed3a77bec",
-	"installationKey":"645445d5-177a-475d-b2fe-69d3f6c89498",
-	"title":"International Barcode of Life project (iBOL) Barcode Index Numbers (BINs)",
-	"type":"CHECKLIST" 
+  "type":"DWC_ARCHIVE",
+  "url":"https://dl.dropboxusercontent.com/u/639486/ibol-dwca.zip"
 }</string>
 	<key>followRedirect</key>
 	<true/>
