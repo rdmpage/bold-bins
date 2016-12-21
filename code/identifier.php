@@ -37,8 +37,7 @@ while (!$done)
 
 	while (!$result->EOF && ($result->NumRows() > 0)) 
 	{	
-		echo $result->fields['bin'] . "\t" . $result->fields['doi'] . "\tDOI for Barcode Index Number (BIN)\n";
-
+		echo $result->fields['bin'] . "\tdoi:" . $result->fields['doi'] . "\tDOI for Barcode Index Number (BIN)\n";
 
 		$result->MoveNext();
 	}
