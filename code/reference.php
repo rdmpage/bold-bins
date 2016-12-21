@@ -45,7 +45,7 @@ WHERE `references_unique`.doi IS NOT NULL
 
 	while (!$result->EOF && ($result->NumRows() > 0)) 
 	{	
-		echo $result->fields['bin'] . "\t" . $result->fields['doi'] . "\t" .  str_replace("\t", " ", utf8_encode($result->fields['reference'])) . ' doi:' .  $result->fields['doi'] . "\n";
+		echo $result->fields['bin'] . "\thttp://doi.org/" . $result->fields['doi'] . "\t" .  str_replace("\t", " ", utf8_encode($result->fields['reference'])) . ' doi:' .  $result->fields['doi'] . "\n";
 		$result->MoveNext();
 	}
 	
