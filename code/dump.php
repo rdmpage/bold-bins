@@ -49,7 +49,7 @@ while (!$done)
 			$obj->scientificName = '';
 			
 			$taxon_keys = array('phylum', 'class', 'order', 'family', 'subfamily', 'genus', 'species', 'subspecies');
-			
+						
 			$obj->stop = false;
 			
 			foreach ($taxon_keys as $key)
@@ -59,38 +59,70 @@ while (!$done)
 				
 				if ($result->fields[$key] != '')
 				{
+					// Stopping rules
 					if (!$obj->stop)
 					{
+						// Multiple names associted with BIN
 						if (preg_match('/;/', $result->fields[$key]))
 						{
 							$obj->stop = true;
+						}
+						
+						// Name not Linnean
+						switch ($key)
+						{
+							case 'genus':
+								if (preg_match('/^[a-z]/', $result->fields[$key]))
+								{
+									$obj->stop = true;
+								}
+								break;
+
+							case 'species':
+								if (preg_match('/\d+/', $result->fields[$key]))
+								{
+									$obj->stop = true;
+								}
+								break;
+								
+							default:
+								break;
+						}						
+						
+						if ($obj->stop)
+						{
+							$obj->scientificName = trim($obj->scientificName . ' ' . $obj->taxonID);
 						}
 					}
 
 					if ($obj->stop)
 					{
-						$obj->taxonRemarks[] = $result->fields[$key];
+						$obj->taxonRemarks[] = $result->fields[$key];						
 					}
 					else
 					{
 						$value = $result->fields[$key];
-						if ($key == 'species')
+						
+						switch ($key)
 						{
-							$obj->scientificName = $value;
-							$parts = explode(' ', $value);
-							$value = $parts[1];
-							$dwc_key = 'specificEpithet';
-							
-							
-						}
-						if ($key == 'subspecies')
-						{
-							$obj->scientificName = $value;						
-							$parts = explode(' ', $value);
-							$value = $parts[2];
-							$obj->rank = 'subspecies';
-							$dwc_key = 'infraspecificEpithet';
-
+							case 'species':
+								$obj->scientificName = $value;
+								$parts = explode(' ', $value);
+								$value = $parts[1];
+								$dwc_key = 'specificEpithet';
+								break;
+						
+							case 'subspecies':
+								$obj->scientificName = $value;						
+								$parts = explode(' ', $value);
+								$value = $parts[2];
+								$obj->rank = 'subspecies';
+								$dwc_key = 'infraspecificEpithet';
+								break;
+								
+							default:
+								$obj->scientificName = $value;
+								break;
 						}
 					}
 				}
@@ -159,7 +191,7 @@ while (!$done)
 	else
 	{
 		$offset += $page;		
-		//if ($offset > 1000) { $done = true; }
+		//if ($offset > 100) { $done = true; }
 	}
 }
 
