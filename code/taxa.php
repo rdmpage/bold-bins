@@ -12,7 +12,7 @@ $db->Connect("localhost",
 // Ensure fields are (only) indexed by column name
 $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 
-$count = 0;
+$count = 1;
 
 $page = 1000;
 $offset = 0;
@@ -20,11 +20,9 @@ $offset = 0;
 $result = $db->Execute('SET max_heap_table_size = 1024 * 1024 * 1024');
 $result = $db->Execute('SET tmp_table_size = 1024 * 1024 * 1024');
 
-$mode = 0;
-
 $done = false;
 
-$keys = array('taxonID', 'phylum', 'class', 'order', 'family', 'subfamily', 'genus', 
+$keys = array('taxonID', 'acceptedNameUsageID', 'phylum', 'class', 'order', 'family', 'subfamily', 'genus', 
 'specificEpithet', 'infraspecificEpithet', 'scientificName', 'taxonRemarks',
 'references' );
 echo join("\t", $keys) . "\n";
@@ -32,6 +30,9 @@ echo join("\t", $keys) . "\n";
 while (!$done)
 {
 	$sql = 'SELECT * FROM `bins` ORDER BY bin LIMIT ' . $page . ' OFFSET ' . $offset;
+	
+	// $sql = 'SELECT * FROM `bins` WHERE bin="BOLD:AAC0067"';
+	// $sql = 'SELECT * FROM `bins` WHERE genus="Sorex"';
 
 	$result = $db->Execute($sql);
 	if ($result == false) die("failed [" . __FILE__ . ":" . __LINE__ . "]: " . $sql);
@@ -41,7 +42,15 @@ while (!$done)
 		if ($result->fields['phylum'] != '')
 		{
 			$obj = new stdclass;
-			$obj->taxonID = $result->fields['bin'];
+			$syn = null;
+			
+			$taxonID = $result->fields['bin'];
+			
+			//$obj->taxonID = $result->fields['bin'];
+			$obj->taxonID = $count;
+			
+			$obj->acceptedNameUsageID = '';
+			
 			$obj->references = 'http://www.boldsystems.org/index.php/Public_BarcodeCluster?clusteruri=' . $result->fields['bin'];
 
 			$obj->taxonRemarks = array();
@@ -61,7 +70,7 @@ while (!$done)
 					// Stopping rules
 					if (!$obj->stop)
 					{
-						// Multiple names associted with BIN
+						// Multiple names associated with BIN
 						if (preg_match('/;/', $result->fields[$key]))
 						{
 							$obj->stop = true;
@@ -88,15 +97,18 @@ while (!$done)
 								break;
 						}						
 						
+						// we don't have a proper name
 						if ($obj->stop)
 						{
-							$obj->scientificName = trim($obj->scientificName . ' ' . $obj->taxonID);
+							$obj->taxonID = $taxonID;
+							$obj->scientificName = $obj->taxonID;
+							
 						}
 					}
 
 					if ($obj->stop)
 					{
-						$obj->taxonRemarks[] = $result->fields[$key];						
+						$obj->taxonRemarks[] = $result->fields[$key];	
 					}
 					else
 					{
@@ -122,35 +134,60 @@ while (!$done)
 								$obj->scientificName = $value;
 								break;
 						}
+						
+						
 					}
 				}
 				$obj->{$dwc_key} = $value;
 			}
-
+			
+			if ($obj->stop)
+			{
+			}
+			else
+			{
+				// we do have a name
+				$syn = new stdclass;
+				foreach ($keys  as $k)
+				{
+					$syn->{$k} = '';
+				}
+				$syn->taxonID = $taxonID;
+				$syn->acceptedNameUsageID = $count;
+				$syn->scientificName = $taxonID;
+						
+				$count++;
+			}
 		
-			if ($mode == 0)
-			{			
+			// dump data
+			$row = array();
+			foreach ($keys as $k)
+			{
+				switch ($k)
+				{
+					case 'taxonRemarks':
+						$row[] = join(" | ", $obj->{$k});
+						break;
+						
+					default:
+						$row[] = $obj->{$k};
+						break;
+				}
+			}
+			echo join("\t", $row) . "\n";
+
+			if ($syn)
+			{
 				$row = array();
 				foreach ($keys as $k)
 				{
-					switch ($k)
-					{
-						case 'taxonRemarks':
-							$row[] = join(" | ", $obj->{$k});
-							break;
-							
-						default:
-							$row[] = $obj->{$k};
-							break;
-					}
+					$row[] = $syn->{$k};
 				}
 				echo join("\t", $row) . "\n";
-			
-			}
-
+			}			
 
 		
-			$count++;
+			
 		}
 
 		$result->MoveNext();
