@@ -6,22 +6,25 @@
     <id index="0" />
     
     <field index="0" term="http://rs.tdwg.org/dwc/terms/taxonID"/>
-    <field index="1" term="http://rs.tdwg.org/dwc/terms/phylum"/>
-    <field index="2" term="http://rs.tdwg.org/dwc/terms/class"/>
-    <field index="3" term="http://rs.tdwg.org/dwc/terms/order"/>
-    <field index="4" term="http://rs.tdwg.org/dwc/terms/family"/>
+    <!-- add this to handle BINs as synonyms -->
+    <field index="1" term="http://rs.tdwg.org/dwc/terms/acceptedNameUsageID"/>
+    
+    <field index="2" term="http://rs.tdwg.org/dwc/terms/phylum"/>
+    <field index="3" term="http://rs.tdwg.org/dwc/terms/class"/>
+    <field index="4" term="http://rs.tdwg.org/dwc/terms/order"/>
+    <field index="5" term="http://rs.tdwg.org/dwc/terms/family"/>
     <!-- ignore subfamily -->
-    <!-- <field index="5" term="http://rs.tdwg.org/dwc/terms/subfamily"/> -->
-    <field index="6" term="http://rs.tdwg.org/dwc/terms/genus"/>
-    <field index="7" term="http://rs.tdwg.org/dwc/terms/specificEpithet"/>
-    <field index="8" term="http://rs.tdwg.org/dwc/terms/infraspecificEpithet"/>
-    <field index="9" term="http://rs.tdwg.org/dwc/terms/scientificName"/>
+    <!-- <field index="6" term="http://rs.tdwg.org/dwc/terms/subfamily"/> -->
+    <field index="7" term="http://rs.tdwg.org/dwc/terms/genus"/>
+    <field index="8" term="http://rs.tdwg.org/dwc/terms/specificEpithet"/>
+    <field index="9" term="http://rs.tdwg.org/dwc/terms/infraspecificEpithet"/>
+    <field index="10" term="http://rs.tdwg.org/dwc/terms/scientificName"/>
     
     <!-- If BIN has multiple taxonomic names store them here -->
-    <field index="10" term="http://rs.tdwg.org/dwc/terms/taxonRemarks"/>    
+    <field index="11" term="http://rs.tdwg.org/dwc/terms/taxonRemarks"/>    
         
     <!-- link to BOLD -->
-    <field index="11" term="http://purl.org/dc/terms/references"/> 
+    <field index="12" term="http://purl.org/dc/terms/references"/> 
     
     <!-- defaults -->
     <field term="http://rs.tdwg.org/dwc/terms/taxonRank" default="species" />
